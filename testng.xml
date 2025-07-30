@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="SauceDemoSuite" parallel="false">
+    <parameter name="url" value="https://www.saucedemo.com/" />
+    <parameter name="validUser" value="standard_user"/>
+    <parameter name="validPwd" value="secret_sauce"/>
+    <parameter name="invalidUser" value="standard_Invaliduser"/>
+    <parameter name="invalidPwd" value="secret_Invalidpwd"/>
+    <test name="Login Tests">
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+</suite>
