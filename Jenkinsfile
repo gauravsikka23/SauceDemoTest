@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven_3.9.6'       // Name of Maven tool configured in Jenkins
-        jdk 'JDK-21'
-           // Name of JDK configured in Jenkins
+        maven 'Maven'         // Use the exact tool name from Jenkins
+        jdk 'jdk-21'          // Match Jenkins-installed tool name
     }
 
     environment {
@@ -15,7 +14,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'CaseStudy_Intermediate',
-                    url: 'https://github.com/your-username/SauceDemoTest.git'
+                    url: 'https://github.com/gauravsikka23/SauceDemoTest.git'
             }
         }
 
@@ -24,14 +23,12 @@ pipeline {
                 sh 'mvn clean test -Dsurefire.suiteXmlFiles=${SUITE_FILE}'
             }
         }
+    }
 
-        stage('Archive Test Results') {
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
-                    archiveArtifacts artifacts: 'screenshots/*.png', fingerprint: true
-                }
-            }
+    post {
+        always {
+            junit '**/target/surefire-reports/*.xml'
+            archiveArtifacts artifacts: 'screenshots/*.png', fingerprint: true
         }
     }
 }
